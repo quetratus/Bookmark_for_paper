@@ -31,8 +31,8 @@ public class Calculator {
         return dividend / divisor;
     }
 
-    public int multiply(int firstOperand, int secondOperand) {
-        throw new UnsupportedOperationException();
+    public double multiply(double firstOperand, double secondOperand) {
+        return firstOperand * secondOperand;
     }
 
     public int factorial(int firstOperand) {

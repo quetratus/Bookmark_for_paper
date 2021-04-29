@@ -224,7 +224,8 @@ public class CalculatorTest {
         // Arrange
         int firsOperand = 0;
         int secondOperand = -10;
-        double expectedResult = 0;
+        // this could be handled to have always 0 not -/+ 0 values or 0.0 values, but I see no advantage
+        double expectedResult = -0.0;
         double result = 0;
 
         // Act
@@ -288,6 +289,113 @@ public class CalculatorTest {
 
         // Act
         result = new Calculator().divide(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+    /**
+     * Test to ensure positive and positive numbers are multiplied correctly.<p>
+     * <p>
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:<p>
+     * Arranje a positive number (six) and another positive but smaller number (three)<p>
+     * Act I multiply six with three<p>
+     * Assert the  result should be eighteen.
+     */
+    @Test
+    public void ensureSixMultipliedByThreeEuqalsEighteen() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 6;
+        int secondOperand = 3;
+        int expectedResult = 18;
+        double result = 18;
+
+        // Act
+        result = new Calculator().multiply(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    /**
+     * Test to ensure positive and positive numbers are multiplied correctly.<p>
+     * <p>
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:<p>
+     * Arranje a positive number (six) and another positive but smaller number (three)<p>
+     * Act I multiply six with minus three<p>
+     * Assert the  result should be negative eighteen.
+     */
+    @Test
+    public void ensureMinusSixMultipliedByThreeEuqalsMinusEighteen() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = -6;
+        int secondOperand = 3;
+        int expectedResult = -18;
+        double result = 18;
+
+        // Act
+        result = new Calculator().multiply(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    /**
+     * Test to ensure negative float number value and negative number are multiplied correctly.<p>
+     * <p>
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:<p>
+     * Arranje a negative number (6.3) and another negative  number (three)<p>
+     * Act I multiply -6.3 with minus three<p>
+     * Assert the  result should be negative eighteen.
+     */
+    @Test
+    public void ensureMinusSixCommaSixMultipliedByThreeEuqalsMinusEighteen() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        double firsOperand = -6.3;
+        int secondOperand = -3;
+        double expectedResult = 18.9;
+        double result = 18;
+
+        // Act
+        result = new Calculator().multiply(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    /**
+     * Test to ensure multiply by zero works.<p>
+     * <p>
+     * For demonstration purposes the Arrange/Act/Assert syntax is used:<p>
+     * Arranje a 0 and  a  number (three)<p>
+     * Act I multiply 0 with  three<p>
+     * Assert the  result should be zero.
+     */
+    @Test
+    public void ensureMultiplyByZeroGivesZero() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        double firsOperand = 0;
+        int secondOperand = 3;
+        double expectedResult = 0;
+        double result = 18;
+
+        // Act
+        result = new Calculator().multiply(firsOperand, secondOperand);
 
         // Assert
         assertEquals(expectedResult, result);
