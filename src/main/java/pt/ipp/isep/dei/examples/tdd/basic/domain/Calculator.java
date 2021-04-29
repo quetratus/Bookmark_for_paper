@@ -1,5 +1,8 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
+
+//import static jdk.nashorn.internal.objects.NativeMath.round;
+
 /**
  * Calculator class.
  * This class is very simple in order to demonstrate how to build test cases for Unit Testing.
@@ -21,8 +24,11 @@ public class Calculator {
         throw new UnsupportedOperationException();
     }
 
-    public int divide(int dividend, int divisor) {
-        throw new UnsupportedOperationException();
+    public double divide(double dividend, double divisor) {
+        if (divisor == 0) throw new java.lang.ArithmeticException("/ by zero");
+
+      //  return round(dividend/divisor, 2);
+        return dividend / divisor;
     }
 
     public int multiply(int firstOperand, int secondOperand) {
