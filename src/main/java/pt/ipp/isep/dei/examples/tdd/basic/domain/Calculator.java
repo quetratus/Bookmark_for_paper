@@ -20,9 +20,7 @@ public class Calculator {
         return firstOperand + secondOperand;
     }
 
-    public int subtract(int firstOperand, int secondOperand) {
-        throw new UnsupportedOperationException();
-    }
+    public int subtract(int firstOperand, int secondOperand) { return firstOperand - secondOperand; }
 
     public double divide(double dividend, double divisor) {
         if (divisor == 0) throw new java.lang.ArithmeticException("/ by zero");

@@ -69,6 +69,156 @@ public class CalculatorTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    public void sumFirstOperandZero() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 0;
+        int secondOperand = 10;
+        int expectedResult = 10;
+        int result = 10;
+
+        // Act
+        result = new Calculator().sum(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void sumSecondOperandZero() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 10;
+        int secondOperand = 0;
+        int expectedResult = 10;
+        int result = 10;
+
+        // Act
+        result = new Calculator().sum(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void sumBothOperandsZero() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 0;
+        int secondOperand = 0;
+        int expectedResult = 0;
+        int result = 0;
+
+        // Act
+        result = new Calculator().sum(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void sumWithLargeNumbers() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 500000000;
+        int secondOperand = 500000000;
+        int expectedResult = 1000000000;
+        int result = 1000000000;
+
+        // Act
+        result = new Calculator().sum(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void subtractFiveMinusFive() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 5;
+        int secondOperand = 5;
+        int expectedResult = 0;
+        int result = 0;
+
+        // Act
+        result = new Calculator().subtract(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+    @Test
+    public void subtractWithZero() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 5;
+        int secondOperand = 0;
+        int expectedResult = 5;
+        int result = 5;
+
+        // Act
+        result = new Calculator().subtract(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void subtractWithNegative() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        int firsOperand = 5;
+        int secondOperand = -10;
+        int expectedResult = 15;
+        int result = 15;
+
+        // Act
+        result = new Calculator().subtract(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void subtractWithLargeNumbers() {
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        int firsOperand = 1000000000;
+        int secondOperand = 500000000;
+        int expectedResult = 500000000;
+        int result = 500000000;
+
+        // Act
+        result = new Calculator().subtract(firsOperand, secondOperand);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
     /**
      * Test to ensure positive and negative numbers are summed correctly.<p>
      * <p>
@@ -95,6 +245,8 @@ public class CalculatorTest {
         // Assert
         assertEquals(expectedResult, result);
     }
+
+
 
     /**
      * Test to ensure positive and positive numbers are divided correctly.<p>
