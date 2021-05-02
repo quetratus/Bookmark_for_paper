@@ -36,6 +36,12 @@ public class Calculator {
     }
 
     public int factorial(int firstOperand) {
-        throw new UnsupportedOperationException();
+
+        int fact = 1;
+        for (int i = 2; i <= firstOperand; i++) {
+            fact = fact * i;
+        }
+        return fact;
+
     }
 }
