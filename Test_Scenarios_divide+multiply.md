@@ -1,4 +1,4 @@
-# calculator divide 
+# bookmark divide 
 - edge cases 
   + Division by Zero
   + NaN Input
@@ -6,7 +6,7 @@
 - positive values
 - very high number values
 
-# calculator multiply
+# bookmark multiply
 - edge cases
  + Nan Input (because of javas type sensitivity this cannot be tested I assume)
 - negative values
