@@ -37,7 +37,7 @@ public class BookmarkTest {
         System.out.println(
                 "\tThis call takes place after each @Test is executed");
     }
-
+/*
     @Test
     @Disabled
     public void failingTest() {
@@ -52,6 +52,7 @@ public class BookmarkTest {
      * Act: sum both numbers (three and two).<p>
      * Assert: the result is five.
      */
+
     @Test
     public void addValidURL() throws MalformedURLException {
 
@@ -92,6 +93,32 @@ public class BookmarkTest {
             assertEquals(expectedResult, result);
         } catch (MalformedURLException e) {
         }
+    }
+
+    @Test
+    public void addASingleTagToAURL()  {
+
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        URL url= null;
+        try {
+            url = new URL("http://www.google.com");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String tag = new String("search");
+        String expectedResult = "search";
+       String result  ;
+
+        // Act
+
+        result = new Bookmark().addTagtoBookmark(url, tag);
+
+        // Assert
+        assertEquals(expectedResult, result);
     }
 
 }
