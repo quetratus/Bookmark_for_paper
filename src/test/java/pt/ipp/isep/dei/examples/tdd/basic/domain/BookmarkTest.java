@@ -94,6 +94,17 @@ public class BookmarkTest {
         } catch (MalformedURLException e) {
         }
     }
+    /**
+     *This ssems to do the job, but with the closure, breaks the usual pattern
+     */
+    @Test
+    public void addInvalidURLrevisited()  {
+
+
+        Assertions.assertThrows(MalformedURLException.class, () -> {
+            new Bookmark().addBookmark(new URL("h//www.google.com"));
+        });
+    }
 
     @Test
     public void addASingleTagToAURL()  {
@@ -112,6 +123,32 @@ public class BookmarkTest {
         String tag = new String("search");
         String expectedResult = "search";
        String result  ;
+
+        // Act
+
+        result = new Bookmark().addTagtoBookmark(url, tag);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void addMultipleTagsToAURL()  {
+
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        URL url= null;
+        try {
+            url = new URL("http://www.google.com");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String tag = new String("search, read, execute");
+        String expectedResult = "search, read, execute";
+        String result  ;
 
         // Act
 
