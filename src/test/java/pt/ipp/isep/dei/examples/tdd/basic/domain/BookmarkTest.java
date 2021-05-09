@@ -67,8 +67,7 @@ public class BookmarkTest {
 
         // Act
 
-        result = new Bookmark().addBookmark(url);
-
+        result = new BookmarksHandler().addBookmark(url);
         // Assert
         assertEquals(expectedResult, result);
     }
@@ -87,12 +86,23 @@ public class BookmarkTest {
             Boolean result;
 
             // Act
-            result = new Bookmark().addBookmark(url);
+            result = new BookmarksHandler().addBookmark(url);
 
             // Assert
             assertEquals(expectedResult, result);
         } catch (MalformedURLException e) {
         }
+    }
+    /**
+     *This ssems to do the job, but with the closure, breaks the usual pattern
+     */
+    @Test
+    public void addInvalidURLrevisited()  {
+
+
+        Assertions.assertThrows(MalformedURLException.class, () -> {
+            new BookmarksHandler().addBookmark(new URL("h//www.google.com"));
+        });
     }
 
     @Test
@@ -115,10 +125,113 @@ public class BookmarkTest {
 
         // Act
 
-        result = new Bookmark().addTagtoBookmark(url, tag);
+        result = new BookmarksHandler().addTagtoBookmark(url, tag);
 
         // Assert
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void addMultipleTagsToAURL()  {
+
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        URL url= null;
+        try {
+            url = new URL("http://www.google.com");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String tag = new String("search, read, execute");
+        String expectedResult = "search, read, execute";
+        String result  ;
+
+        // Act
+
+        result = new BookmarksHandler().addTagtoBookmark(url, tag);
+
+        // Assert
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void addMultipleBookmarks()  {
+
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        URL url= null;
+        try {
+            url = new URL("http://www.google.com/search?1");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String tag = new String("search, read, execute");
+        String expectedResult = "search, read, execute";
+        String result  ;
+        BookmarksHandler bookmarks = new BookmarksHandler();
+        // Act
+
+        result = bookmarks.addTagtoBookmark(url, tag);
+        try {
+            url = new URL("http://www.google.com/search?2");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        result = bookmarks.addTagtoBookmark(url, tag);
+
+        try {
+            url = new URL("http://www.google.com/search?3");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        result = bookmarks.addTagtoBookmark(url, tag);
+        result = bookmarks.addTagtoBookmark(url, tag);
+        result = bookmarks.addTagtoBookmark(url, tag);
+
+        // Assert
+        assertEquals(expectedResult, result);
+
+        assertEquals(3, bookmarks.numBookmarks());
+    }
+
+    @Test
+    public void getUpdatedValueofBookmarkHash() {
+
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        URL url = null;
+        try {
+            url = new URL("http://www.google.com/search?1");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        BookmarksHandler bookmarks = new BookmarksHandler();
+
+        bookmarks.addBookmark(url); // 1
+        bookmarks.addBookmark(url); // 2
+        bookmarks.addBookmark(url); // 3
+        bookmarks.addBookmark(url); // 4
+        bookmarks.addBookmark(url); // 5
+
+        Bookmark bookmark = bookmarks.getBookmark(url);
+
+        Integer bookmarkRating = bookmark.rating;
+
+
+        assertEquals(5, bookmarkRating);
+        // starts at 1 thats why it's 5;
+        assertEquals(5, bookmarks.getBookmarksRating(url));
+
+
     }
 
 }
