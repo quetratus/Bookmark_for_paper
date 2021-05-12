@@ -69,7 +69,7 @@ public class BookmarksHandler {
     public int getSecureUrl(){
         Map<Object, Object> result = bookmarks.entrySet()
                 .stream()
-                .filter(map -> map.getValue().startsWith("https://")) //filter by value
+                .filter(map -> map.getValue().contains("https")) //filter by value
                 .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
 
         return result.size(); };

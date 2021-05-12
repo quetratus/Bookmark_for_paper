@@ -243,29 +243,59 @@ public class BookmarkTest {
 
         // Arrange
         URL url = null;
+        URL urlsecure= null;
+
         try {
-            url = new URL("https://www.google.com/search?1");
+            urlsecure = new URL("https://www.google.com");
+            url = new URL("http://www.google.com");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         BookmarksHandler bookmarks = new BookmarksHandler();
 
-        bookmarks.addBookmark(url); // 1
-        bookmarks.addBookmark(url); // 2
-        bookmarks.addBookmark(url); // 3
-        bookmarks.addBookmark(url); // 4
-        bookmarks.addBookmark(url); // 5
+        bookmarks.addBookmark(url);
+        bookmarks.addBookmark(urlsecure);
+        bookmarks.addBookmark(url);
+        bookmarks.addBookmark(url);
+        bookmarks.addBookmark(urlsecure);
 
-        Bookmark bookmark = bookmarks.getBookmark(url);
+        Bookmark bookmark = bookmarks.getBookmark(urlsecure);
+        int bookmarkSecure = bookmark.getSecureUrl();
 
-        Integer bookmarkSecure = bookmark.getSecureUrl();
 
-
-        assertEquals(5, bookmarkSecure);
-
+        assertEquals(2, bookmarkSecure);
 
     }
 
+    @Test
+    public void getNumberOfZeroSecureBooksmarks() {
+
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        URL url = null;
+        URL urlsecure= null;
+
+        try {
+            url = new URL("http://www.google.com");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        BookmarksHandler bookmarks = new BookmarksHandler();
+
+        bookmarks.addBookmark(url);
+        bookmarks.addBookmark(url);
+        bookmarks.addBookmark(url);
+
+        Bookmark bookmark = bookmarks.getBookmark(url);
+        int bookmarkSecure = bookmark.getSecureUrl();
+
+
+        assertEquals(0, bookmarkSecure);
+
+    }
 }
 
 
