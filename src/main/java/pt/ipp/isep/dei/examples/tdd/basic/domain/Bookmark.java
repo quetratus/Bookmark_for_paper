@@ -6,6 +6,7 @@ public class Bookmark {
     URL url;
     String tags;
     Integer rating;
+    int noSecureUrl;
     // Currently  used for experimenting around
     public Bookmark(URL url, String tags, Integer rating) {
         this.url = url;
@@ -39,4 +40,6 @@ public class Bookmark {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
+
+    public int getSecureUrl(){ return noSecureUrl; };
 }

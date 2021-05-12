@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Bookmark class.
@@ -63,4 +65,12 @@ public class BookmarksHandler {
     public Integer getBookmarksRating(URL url) {
        return bookmarksRating.get(url);
     }
+
+    public int getSecureUrl(){
+        Map<Object, Object> result = bookmarks.entrySet()
+                .stream()
+                .filter(map -> map.getValue().startsWith("https://")) //filter by value
+                .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+
+        return result.size(); };
 }

@@ -14,14 +14,14 @@ public class BookmarkTest {
     public static void classSetUp() {
         //HACK: for demonstration purposes only
         System.out.println(
-                "This is a CalculatorTest class method and takes place before any @Test is executed");
+                "This is a BookmarkTest class method and takes place before any @Test is executed");
     }
 
     @AfterAll
     public static void classTearDown() {
         //HACK: for demonstration purposes only
         System.out.println(
-                "This is a CalculatorTest class method and takes place after all @Test are executed");
+                "This is a BookmarkTest class method and takes place after all @Test are executed");
     }
 
     @BeforeEach
@@ -230,6 +230,38 @@ public class BookmarkTest {
         assertEquals(5, bookmarkRating);
         // starts at 1 thats why it's 5;
         assertEquals(5, bookmarks.getBookmarksRating(url));
+
+
+    }
+
+    @Test
+    public void getNumberOfSecureBooksmarks() {
+
+        //HACK: for demonstration purposes only
+        System.out.println("\t\tExecuting " + new Object() {
+        }.getClass().getEnclosingMethod().getName() + " Test");
+
+        // Arrange
+        URL url = null;
+        try {
+            url = new URL("https://www.google.com/search?1");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        BookmarksHandler bookmarks = new BookmarksHandler();
+
+        bookmarks.addBookmark(url); // 1
+        bookmarks.addBookmark(url); // 2
+        bookmarks.addBookmark(url); // 3
+        bookmarks.addBookmark(url); // 4
+        bookmarks.addBookmark(url); // 5
+
+        Bookmark bookmark = bookmarks.getBookmark(url);
+
+        Integer bookmarkSecure = bookmark.getSecureUrl();
+
+
+        assertEquals(5, bookmarkSecure);
 
 
     }
