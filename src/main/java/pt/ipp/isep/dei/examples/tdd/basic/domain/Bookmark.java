@@ -1,22 +1,28 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Bookmark {
-    URL url;
-    String tags;
+    private URL url;
+    private String tags;
     Integer rating;
-    int noSecureUrl;
+    private int noSecureUrl;
+
+    public Bookmark(URL url) throws MalformedURLException {
+        new Bookmark(url, tags, rating);
+    }
+
     // Currently  used for experimenting around
-    public Bookmark(URL url, String tags, Integer rating) {
+    public Bookmark(URL url, String tags, Integer rating) throws MalformedURLException  {
         this.url = url;
         this.tags = tags;
         this.rating = rating;
     }
-    public Bookmark() {
 
-    }
-
+    /**
     public URL getUrl() {
         return url;
     }
@@ -40,6 +46,8 @@ public class Bookmark {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
+*/
+    public int getSecureUrl(){ return noSecureUrl; }
 
-    public int getSecureUrl(){ return noSecureUrl; };
+
 }

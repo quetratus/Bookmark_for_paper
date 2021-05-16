@@ -2,13 +2,9 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
 
 //import static jdk.nashorn.internal.objects.NativeMath.round;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,22 +21,21 @@ public class BookmarksHandler {
     HashMap<URL, Integer> bookmarksRating = new HashMap<URL, Integer>(); // Maybe this way is more like tdd? to have two hashmaps here
     HashMap<URL, Bookmark> bookmarksHashMap = new HashMap<URL, Bookmark>(); // bit unpractical
 
-
-    public Boolean addBookmark(URL url) {
+    public Boolean addBookmark(URL url) throws MalformedURLException {
         // this would overwrite the tags if existent I guess..
         bookmarks.put(url, null);
 
         // if using BookmarksClass and HashMap was the case
-        if(bookmarksHashMap.containsKey(url)) {
+        if (bookmarksHashMap.containsKey(url)) {
             bookmark = bookmarksHashMap.get(url);
-            bookmark.rating +=1;
-           bookmarksHashMap.put(url, bookmark);
+            bookmark.rating += 1;
+            bookmarksHashMap.put(url, bookmark);
         } else {
-            bookmarksHashMap.put(url, new Bookmark(url, null, 1));
+            bookmarksHashMap.put(url, new Bookmark(this.url, null, 1));
         }
 
         // with Rating as an extra hash map
-        bookmarksRating.merge(url,1,Integer::sum);
+        bookmarksRating.merge(url, 1, Integer::sum);
 
         return true;
     }
@@ -49,10 +44,9 @@ public class BookmarksHandler {
     public String addTagtoBookmark(URL url, String tag) {
 
         bookmarks.put(url, tag);
-         String storedTag  = bookmarks.get(url);
+        String storedTag = bookmarks.get(url);
         return storedTag;
     }
-
 
     public Integer numBookmarks() {
         return bookmarks.size();
@@ -63,14 +57,43 @@ public class BookmarksHandler {
     }
 
     public Integer getBookmarksRating(URL url) {
-       return bookmarksRating.get(url);
+        return bookmarksRating.get(url);
     }
+
+    public List<String> searchBookmarksByKeyword(String keyword) {
+        List<String> foundBookmarks = new ArrayList<>();
+        for (Map.Entry<URL, String> entry : bookmarks.entrySet()) {
+            if (entry.getValue().contains(keyword)) {
+                foundBookmarks.add(entry.getValue());
+            } else System.out.println("No result found");
+        }
+        return foundBookmarks;
+    }
+
 
     public int getSecureUrl(){
         Map<Object, Object> result = bookmarks.entrySet()
                 .stream()
-                .filter(map -> map.getValue().contains("https")) //filter by value
-                .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+                .filter(map -> map.getKey().toString().contains("http://www.yahoo.com/"))//filter by value
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-        return result.size(); };
+        return result.size(); }
 }
+
+
+/*
+         //create a set holding all keys in the hashtable
+        Iterator<Map.Entry<URL, String>> iterator = bookmarks.entrySet().iterator();
+        int count = 0;
+        String str = "https";
+        while (iterator.hasNext()) {
+            Map.Entry<URL, String> entry = iterator.next();
+            for (entry.getValue().startsWith(str)) {
+                secureURLs.put(entry);}
+            if (entry.getValue().startsWith(str)) {
+                count++;
+            } else {
+                count = 0;
+            }
+        }return count;}
+*/
