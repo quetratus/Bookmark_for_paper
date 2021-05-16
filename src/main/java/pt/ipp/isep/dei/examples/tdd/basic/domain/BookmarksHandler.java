@@ -6,6 +6,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
+import static java.util.Map.*;
+
 /**
  * Bookmark class.
  * This class is very simple in order to demonstrate how to build test cases for Unit Testing.
@@ -59,17 +61,25 @@ public class BookmarksHandler {
         return bookmarksRating.get(url);
     }
 
-    /**
-    public List<String> searchBookmarksByKeyword(String keyword) {
-        List<String> foundBookmarks = new ArrayList<>();
-        for (Map.Entry<URL, String> entry : bookmarks.entrySet()) {
-            if (entry.getValue().contains(keyword)) {
-                foundBookmarks.add(entry.getValue());
-            } else System.out.println("No result found");
+
+    public ArrayList searchBookmarksByKeyword(String keyword) {
+        ArrayList<String> foundBookmarks = new ArrayList<>();
+        if (!bookmarks.isEmpty()) {
+            Set entryset = bookmarks.entrySet();
+            Iterator it = entryset.iterator();
+            while (it.hasNext()) {
+                Entry entry = (Entry) it.next();
+                entry.getValue();
+                if (entry.getValue().equals(keyword)) {
+                    foundBookmarks.add(entry.getKey().toString());
+                }
+            }
+        }
+        else {
+            return null;
         }
         return foundBookmarks;
     }
-     */
 
 /**
     public int getSecureUrl(){
@@ -83,11 +93,11 @@ public class BookmarksHandler {
  */
 
     public int getSecureUrl() {
-        ArrayList<Map.Entry> secureURLsList = new ArrayList<>();
+        ArrayList<Entry> secureURLsList = new ArrayList<>();
         Set entryset = bookmarks.entrySet();
         Iterator it = entryset.iterator();
         while (it.hasNext()) {
-            Map.Entry me = (Map.Entry)it.next();
+            Entry me = (Entry)it.next();
             me.getKey();
             if (me.getKey().toString().contains("https")) {
                secureURLsList.add(me);

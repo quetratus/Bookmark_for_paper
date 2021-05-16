@@ -135,12 +135,12 @@ public class BookmarksHandlerTest {
         // starts at 1 thats why it's 5;
         assertEquals(5, bookmarks.getBookmarksRating(url));
     }
-/**
+
     @Test
-    public void searchBookmarksByKeyword(String keyword) throws MalformedURLException {
+    public void searchBookmarksByKeyword() throws MalformedURLException {
         //Arrange
-        keyword = "search";
-       // List<String> foundBookmarks = new ArrayList<>();
+        String keyword = "search";
+        ArrayList foundBookmarks = new ArrayList<>();
         List<String> expectedfoundBookmarks = new ArrayList<>();
         URL url = new URL("http://www.google.com");
         URL url1 = new URL("http://www.bing.com");
@@ -151,14 +151,51 @@ public class BookmarksHandlerTest {
         bookmarks.addTagtoBookmark(url2, "social media");
 
         //Act
-        List<String> foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
+        foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
         expectedfoundBookmarks.add("http://www.google.com");
         expectedfoundBookmarks.add("http://www.bing.com");
 
         //Assert
         assertEquals(expectedfoundBookmarks, foundBookmarks);
     }
- */
+
+    @Test
+    public void searchBookmarksByKeywordZeroResult() throws MalformedURLException {
+        //Arrange
+        String keyword = "search";
+        List<String> foundBookmarks = new ArrayList<>();
+        List<String> expectedfoundBookmarks = new ArrayList<>();
+        URL url = new URL("http://www.google.com");
+        URL url1 = new URL("http://www.bing.com");
+        URL url2 = new URL("http://www.facebook.com");
+
+        bookmarks.addTagtoBookmark(url, "google");
+        bookmarks.addTagtoBookmark(url1, "bing");
+        bookmarks.addTagtoBookmark(url2, "social media");
+
+        //Act
+        foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
+        expectedfoundBookmarks.isEmpty();
+
+        //Assert
+        assertEquals(expectedfoundBookmarks, foundBookmarks);
+    }
+
+    @Test
+    public void searchBookmarksByKeywordZeroEntries() throws MalformedURLException {
+        //Arrange
+        String keyword = "search";
+        List<String> foundBookmarks = new ArrayList<>();
+        List<String> expectedfoundBookmarks = new ArrayList<>();
+
+        //Act
+        foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
+
+
+        //Assert
+        assertEquals(null, foundBookmarks);
+    }
+
 
     @Test
     public void getNumberOfSecureBooksmarks() throws MalformedURLException {
@@ -166,13 +203,16 @@ public class BookmarksHandlerTest {
         // Arrange
         URL url = new URL("http://www.yahoo.com/");
         URL urlsecure = new URL("https://mail.yahoo.com");
+        URL urlsecure1 = new URL("https://www.google.com");
+
 
         bookmarks.addBookmark(url);
         bookmarks.addBookmark(urlsecure);
+        bookmarks.addTagtoBookmark(urlsecure1, "test");
 
         int numberSecureURL = bookmarks.getSecureUrl();
 
-        assertEquals(1, numberSecureURL);
+        assertEquals(2, numberSecureURL);
 
     }
 
