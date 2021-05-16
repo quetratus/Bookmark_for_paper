@@ -5,7 +5,6 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Bookmark class.
@@ -60,6 +59,7 @@ public class BookmarksHandler {
         return bookmarksRating.get(url);
     }
 
+    /**
     public List<String> searchBookmarksByKeyword(String keyword) {
         List<String> foundBookmarks = new ArrayList<>();
         for (Map.Entry<URL, String> entry : bookmarks.entrySet()) {
@@ -69,8 +69,9 @@ public class BookmarksHandler {
         }
         return foundBookmarks;
     }
+     */
 
-
+/**
     public int getSecureUrl(){
         Map<Object, Object> result = bookmarks.entrySet()
                 .stream()
@@ -79,21 +80,20 @@ public class BookmarksHandler {
 
         return result.size(); }
 }
+ */
 
-
-/*
-         //create a set holding all keys in the hashtable
-        Iterator<Map.Entry<URL, String>> iterator = bookmarks.entrySet().iterator();
-        int count = 0;
-        String str = "https";
-        while (iterator.hasNext()) {
-            Map.Entry<URL, String> entry = iterator.next();
-            for (entry.getValue().startsWith(str)) {
-                secureURLs.put(entry);}
-            if (entry.getValue().startsWith(str)) {
-                count++;
-            } else {
-                count = 0;
+    public int getSecureUrl() {
+        ArrayList<Map.Entry> secureURLsList = new ArrayList<>();
+        Set entryset = bookmarks.entrySet();
+        Iterator it = entryset.iterator();
+        while (it.hasNext()) {
+            Map.Entry me = (Map.Entry)it.next();
+            me.getKey();
+            if (me.getKey().toString().contains("https")) {
+               secureURLsList.add(me);
             }
-        }return count;}
-*/
+            }
+        return secureURLsList.size();
+        }
+
+}
