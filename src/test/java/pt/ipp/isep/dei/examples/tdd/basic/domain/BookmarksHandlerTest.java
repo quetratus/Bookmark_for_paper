@@ -175,7 +175,7 @@ public class BookmarksHandlerTest {
 
         //Act
         foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
-        expectedfoundBookmarks.isEmpty();
+    //    expectedfoundBookmarks.isEmpty();
 
         //Assert
         assertEquals(expectedfoundBookmarks, foundBookmarks);
