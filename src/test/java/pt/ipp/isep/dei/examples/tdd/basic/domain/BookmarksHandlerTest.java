@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -140,8 +141,6 @@ public class BookmarksHandlerTest {
     public void searchBookmarksByKeyword() throws MalformedURLException {
         //Arrange
         String keyword = "search";
-        ArrayList foundBookmarks = new ArrayList<>();
-        List<String> expectedfoundBookmarks = new ArrayList<>();
         URL url = new URL("http://www.google.com");
         URL url1 = new URL("http://www.bing.com");
         URL url2 = new URL("http://www.facebook.com");
@@ -149,11 +148,12 @@ public class BookmarksHandlerTest {
         bookmarks.addTagtoBookmark(url, "search");
         bookmarks.addTagtoBookmark(url1, "search");
         bookmarks.addTagtoBookmark(url2, "social media");
+        List<String> expectedfoundBookmarks = new ArrayList<>(Arrays.asList("http://www.bing.com", "http://www.google.com"));
+        ArrayList foundBookmarks;
 
         //Act
         foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
-        expectedfoundBookmarks.add("http://www.google.com");
-        expectedfoundBookmarks.add("http://www.bing.com");
+
 
         //Assert
         assertEquals(expectedfoundBookmarks, foundBookmarks);
