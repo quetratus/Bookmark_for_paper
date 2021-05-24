@@ -260,6 +260,48 @@ public class BookmarksHandlerTest {
         assertThrows(NoSuchElementException.class, () -> bookmarks.removeTagFromBookmark(url, "yahoo"));
     }
 
+    @Test
+    public void removeExistingBookmark() throws MalformedURLException {
+        //Arrange
+        List<URL> remainingBookmarks;
+        URL url = new URL("http://www.google.com");
+        URL url1 = new URL("http://www.yahoo.com");
+
+
+        bookmarks.addBookmark(url);
+        bookmarks.addBookmark(url1);
+
+        //Action
+        bookmarks.removeBookmark(url);
+
+        assertFalse(bookmarks.getAllBookmarks().contains(url));
+        assertTrue(bookmarks.getAllBookmarks().contains(url1));
+
+    }
+
+    @Test
+    public void removeNonExistingBookmark() throws MalformedURLException {
+        //Arrange
+        URL url = new URL("http://www.google.com");
+        URL url1 = new URL("http://www.yahoo.com");
+
+        bookmarks.addBookmark(url);
+
+        //Assert
+        assertThrows(NoSuchElementException.class, () -> bookmarks.removeBookmark(url1));
+    }
+
+    @Test
+    public void removeBookmarkFromEmptyList() throws MalformedURLException {
+        //Arrange
+        URL url = new URL("http://www.google.com");
+
+
+        //Assert
+        assertThrows(NoSuchElementException.class, () -> bookmarks.removeBookmark(url));
+        assertTrue(bookmarks.getAllBookmarks().isEmpty());
+    }
+
 }
 
 

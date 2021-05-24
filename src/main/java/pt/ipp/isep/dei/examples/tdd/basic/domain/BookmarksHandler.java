@@ -109,4 +109,17 @@ public class BookmarksHandler {
         return bookmarks.get(url);
     }
 
+    public void removeBookmark(URL url) {
+        if (bookmarks.containsKey(url)) {
+            bookmarks.remove(url);
+        } else
+            throw new NoSuchElementException();
+    }
+
+    public List<URL> getAllBookmarks() {
+        List<URL> allBookmarks = new ArrayList<>();
+        for (Map.Entry<URL, String> entry : bookmarks.entrySet())
+            allBookmarks.add(entry.getKey());
+        return allBookmarks;
+    }
 }
