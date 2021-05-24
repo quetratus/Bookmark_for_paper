@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
@@ -8,9 +7,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BookmarksHandlerTest {
 
@@ -144,27 +143,27 @@ public class BookmarksHandlerTest {
         URL url = new URL("http://www.google.com");
         URL url1 = new URL("http://www.bing.com");
         URL url2 = new URL("http://www.facebook.com");
+        List<String> foundBookmarks;
+
 
         bookmarks.addTagtoBookmark(url, "search");
         bookmarks.addTagtoBookmark(url1, "search");
         bookmarks.addTagtoBookmark(url2, "social media");
-        List<String> expectedfoundBookmarks = new ArrayList<>(Arrays.asList("http://www.bing.com", "http://www.google.com"));
-        ArrayList foundBookmarks;
+        //List<String> expectedfoundBookmarks = new ArrayList<>(Arrays.asList("http://www.bing.com", "http://www.google.com"));
 
         //Act
         foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
 
 
         //Assert
-        assertEquals(expectedfoundBookmarks, foundBookmarks);
-    }
+        assertTrue(foundBookmarks.contains("http://www.google.com"));
+        assertTrue(foundBookmarks.contains("http://www.bing.com"));    }
 
     @Test
     public void searchBookmarksByKeywordZeroResult() throws MalformedURLException {
         //Arrange
         String keyword = "search";
-        List<String> foundBookmarks = new ArrayList<>();
-        List<String> expectedfoundBookmarks = new ArrayList<>();
+        List<String> foundBookmarks;
         URL url = new URL("http://www.google.com");
         URL url1 = new URL("http://www.bing.com");
         URL url2 = new URL("http://www.facebook.com");
@@ -175,25 +174,24 @@ public class BookmarksHandlerTest {
 
         //Act
         foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
-    //    expectedfoundBookmarks.isEmpty();
 
         //Assert
-        assertEquals(expectedfoundBookmarks, foundBookmarks);
+        assertTrue(foundBookmarks.isEmpty());
     }
 
     @Test
     public void searchBookmarksByKeywordZeroEntries() throws MalformedURLException {
         //Arrange
         String keyword = "search";
-        List<String> foundBookmarks = new ArrayList<>();
-        List<String> expectedfoundBookmarks = new ArrayList<>();
+        List<String> foundBookmarks;
+        //List<String> expectedfoundBookmarks = new ArrayList<>();
 
         //Act
         foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
 
 
         //Assert
-        assertEquals(null, foundBookmarks);
+        assertNull(foundBookmarks);
     }
 
 
@@ -210,8 +208,10 @@ public class BookmarksHandlerTest {
         bookmarks.addBookmark(urlsecure);
         bookmarks.addTagtoBookmark(urlsecure1, "test");
 
+        //Act
         int numberSecureURL = bookmarks.getSecureUrl();
 
+        //Assert
         assertEquals(2, numberSecureURL);
 
     }
@@ -228,10 +228,11 @@ public class BookmarksHandlerTest {
         bookmarks.addBookmark(url1);
         bookmarks.addBookmark(url2);
 
-        int bookmarkSecure = new BookmarksHandler().getSecureUrl();
+        int bookmarkSecure = bookmarks.getSecureUrl();
 
         assertEquals(0, bookmarkSecure);
     }
+
 }
 
 

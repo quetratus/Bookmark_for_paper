@@ -15,6 +15,7 @@ import static java.util.Map.*;
 public class BookmarksHandler {
 
     //URL[] bookmark = new URL[]{ };
+
     Bookmark bookmark;
     URL url;
     String tag;
@@ -41,7 +42,6 @@ public class BookmarksHandler {
         return true;
     }
 
-
     public String addTagtoBookmark(URL url, String tag) {
 
         bookmarks.put(url, tag);
@@ -60,9 +60,8 @@ public class BookmarksHandler {
     public Integer getBookmarksRating(URL url) {
         return bookmarksRating.get(url);
     }
-
-
-    public ArrayList searchBookmarksByKeyword(String keyword) {
+    
+    public ArrayList<String> searchBookmarksByKeyword(String keyword) {
         ArrayList<String> foundBookmarks = new ArrayList<>();
         if (!bookmarks.isEmpty()) {
             Set entryset = bookmarks.entrySet();
