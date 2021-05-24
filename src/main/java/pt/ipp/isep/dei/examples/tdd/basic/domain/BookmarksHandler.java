@@ -105,4 +105,15 @@ public class BookmarksHandler {
         return secureURLsList.size();
         }
 
+    public void removeTagFromBookmark(URL url, String tag) {
+        if (bookmarks.containsKey(url) && bookmarks.containsValue(tag)) {
+            bookmarks.put(url, null);
+        } else
+            throw new NoSuchElementException();
+    }
+
+    public String getTag (URL url) {
+        return bookmarks.get(url);
+    }
+
 }

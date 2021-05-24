@@ -233,6 +233,36 @@ public class BookmarksHandlerTest {
         assertEquals(0, bookmarkSecure);
     }
 
+    @Test
+    public void removeTagFromSelectedBookmark() throws MalformedURLException {
+        //Arrange
+        URL url = new URL("http://www.google.com");
+        URL url1 = new URL("http://www.googlemaps.com");
+        bookmarks.addTagtoBookmark(url, "google");
+        bookmarks.addTagtoBookmark(url1, "google");
+        String expectedWithTag = "google";
+
+        //Act
+        bookmarks.removeTagFromBookmark(url, "google");
+        String noTag = bookmarks.getTag(url);
+        String withTag = bookmarks.getTag(url1);
+
+        //Assert
+        assertEquals(null, noTag);
+        assertEquals(expectedWithTag, withTag);
+    }
+
+    @Test
+    public void tagToRemoveDoesNotExist() throws MalformedURLException {
+        //Arrange
+        URL url = new URL("http://www.google.com");
+        bookmarks.addTagtoBookmark(url, "google");
+        String expectedMessage = "No such tag for this URL";
+
+        //Assert
+        assertThrows(NoSuchElementException.class, () -> bookmarks.removeTagFromBookmark(url, "yahoo"));
+    }
+
 }
 
 
