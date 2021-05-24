@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -191,7 +189,7 @@ public class BookmarksHandlerTest {
 
 
         //Assert
-        assertNull(foundBookmarks);
+        assertTrue(foundBookmarks.isEmpty());
     }
 
 
@@ -248,7 +246,7 @@ public class BookmarksHandlerTest {
         String withTag = bookmarks.getTag(url1);
 
         //Assert
-        assertEquals(null, noTag);
+        assertNull(noTag);
         assertEquals(expectedWithTag, withTag);
     }
 
@@ -257,7 +255,6 @@ public class BookmarksHandlerTest {
         //Arrange
         URL url = new URL("http://www.google.com");
         bookmarks.addTagtoBookmark(url, "google");
-        String expectedMessage = "No such tag for this URL";
 
         //Assert
         assertThrows(NoSuchElementException.class, () -> bookmarks.removeTagFromBookmark(url, "yahoo"));

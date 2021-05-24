@@ -1,7 +1,4 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
-
-
-//import static jdk.nashorn.internal.objects.NativeMath.round;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -14,14 +11,12 @@ import static java.util.Map.*;
  */
 public class BookmarksHandler {
 
-    //URL[] bookmark = new URL[]{ };
-
     Bookmark bookmark;
     URL url;
     String tag;
-    HashMap<URL, String> bookmarks = new HashMap<URL, String>();
-    HashMap<URL, Integer> bookmarksRating = new HashMap<URL, Integer>(); // Maybe this way is more like tdd? to have two hashmaps here
-    HashMap<URL, Bookmark> bookmarksHashMap = new HashMap<URL, Bookmark>(); // bit unpractical
+    HashMap<URL, String> bookmarks = new HashMap<>();
+    HashMap<URL, Integer> bookmarksRating = new HashMap<>(); // Maybe this way is more like tdd? to have two hashmaps here
+    HashMap<URL, Bookmark> bookmarksHashMap = new HashMap<>(); // bit unpractical
 
     public Boolean addBookmark(URL url) throws MalformedURLException {
         // this would overwrite the tags if existent I guess..
@@ -43,10 +38,8 @@ public class BookmarksHandler {
     }
 
     public String addTagtoBookmark(URL url, String tag) {
-
         bookmarks.put(url, tag);
-        String storedTag = bookmarks.get(url);
-        return storedTag;
+        return bookmarks.get(url);
     }
 
     public Integer numBookmarks() {
@@ -61,8 +54,8 @@ public class BookmarksHandler {
         return bookmarksRating.get(url);
     }
     
-    public ArrayList<String> searchBookmarksByKeyword(String keyword) {
-        ArrayList<String> foundBookmarks = new ArrayList<>();
+    public List<String> searchBookmarksByKeyword(String keyword) {
+        List<String> foundBookmarks = new ArrayList<>();
         if (!bookmarks.isEmpty()) {
             Set entryset = bookmarks.entrySet();
             Iterator it = entryset.iterator();
@@ -75,7 +68,7 @@ public class BookmarksHandler {
             }
         }
         else {
-            return null;
+            return Collections.emptyList();
         }
         return foundBookmarks;
     }
