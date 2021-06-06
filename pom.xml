@@ -172,7 +172,7 @@
                         <mutator>DEFAULTS</mutator>
                     </mutators>
 
-                    <verbose>true</verbose>
+                    <!--<verbose>true</verbose>-->
 
                 </configuration>
 
