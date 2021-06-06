@@ -1,17 +1,10 @@
 package pt.ipp.isep.dei.examples.tdd.basic.domain;
-
-
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.*;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import static org.junit.jupiter.api.Assertions.*;
-//import static jdk.nashorn.internal.objects.NativeMath.round;
-public class BookmarkTest {
 
-    private Bookmark bookmark;
+public class BookmarkTest {
 
     @BeforeAll
     public static void classSetUp() {
@@ -30,14 +23,6 @@ public class BookmarkTest {
     public void tearDown() {
 
     }
-/*
-    @Test
-    @Disabled
-    public void failingTest() {
-        fail("a disabled failing test");
-    }
-
-     */
 
     @Test
     public void addInvalidURL() throws MalformedURLException {

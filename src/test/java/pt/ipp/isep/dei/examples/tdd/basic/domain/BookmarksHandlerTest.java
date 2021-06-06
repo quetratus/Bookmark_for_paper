@@ -43,7 +43,7 @@ public class BookmarksHandlerTest {
 
         // Act
 
-        result = new BookmarksHandler().addTagtoBookmark(url, tag);
+        result = new BookmarksHandler().addTagToBookmark(url, tag);
 
         // Assert
         assertEquals(expectedResult, result);
@@ -63,7 +63,7 @@ public class BookmarksHandlerTest {
         String result  ;
 
         // Act
-        result = new BookmarksHandler().addTagtoBookmark(url, tag);
+        result = new BookmarksHandler().addTagToBookmark(url, tag);
 
         // Assert
         assertEquals(expectedResult, result);
@@ -84,22 +84,22 @@ public class BookmarksHandlerTest {
         String result  ;
         // Act
 
-        result = bookmarks.addTagtoBookmark(url, tag);
+        result = bookmarks.addTagToBookmark(url, tag);
         try {
             url = new URL("http://www.google.com/search?2");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        result = bookmarks.addTagtoBookmark(url, tag);
+        result = bookmarks.addTagToBookmark(url, tag);
 
         try {
             url = new URL("http://www.google.com/search?3");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        result = bookmarks.addTagtoBookmark(url, tag);
-        result = bookmarks.addTagtoBookmark(url, tag);
-        result = bookmarks.addTagtoBookmark(url, tag);
+        result = bookmarks.addTagToBookmark(url, tag);
+        result = bookmarks.addTagToBookmark(url, tag);
+        result = bookmarks.addTagToBookmark(url, tag);
 
         // Assert
         assertEquals(expectedResult, result);
@@ -126,7 +126,7 @@ public class BookmarksHandlerTest {
 
         Bookmark bookmark = bookmarks.getBookmark(url);
 
-        Integer bookmarkRating = bookmark.rating;
+        int bookmarkRating = bookmark.rating;
 
 
         assertEquals(5, bookmarkRating);
@@ -144,9 +144,9 @@ public class BookmarksHandlerTest {
         List<String> foundBookmarks;
 
 
-        bookmarks.addTagtoBookmark(url, "search");
-        bookmarks.addTagtoBookmark(url1, "search");
-        bookmarks.addTagtoBookmark(url2, "social media");
+        bookmarks.addTagToBookmark(url, "search");
+        bookmarks.addTagToBookmark(url1, "search");
+        bookmarks.addTagToBookmark(url2, "social media");
         //List<String> expectedfoundBookmarks = new ArrayList<>(Arrays.asList("http://www.bing.com", "http://www.google.com"));
 
         //Act
@@ -166,9 +166,9 @@ public class BookmarksHandlerTest {
         URL url1 = new URL("http://www.bing.com");
         URL url2 = new URL("http://www.facebook.com");
 
-        bookmarks.addTagtoBookmark(url, "google");
-        bookmarks.addTagtoBookmark(url1, "bing");
-        bookmarks.addTagtoBookmark(url2, "social media");
+        bookmarks.addTagToBookmark(url, "google");
+        bookmarks.addTagToBookmark(url1, "bing");
+        bookmarks.addTagToBookmark(url2, "social media");
 
         //Act
         foundBookmarks = bookmarks.searchBookmarksByKeyword(keyword);
@@ -178,7 +178,7 @@ public class BookmarksHandlerTest {
     }
 
     @Test
-    public void searchBookmarksByKeywordZeroEntries() throws MalformedURLException {
+    public void searchBookmarksByKeywordZeroEntries()  {
         //Arrange
         String keyword = "search";
         List<String> foundBookmarks;
@@ -204,7 +204,7 @@ public class BookmarksHandlerTest {
 
         bookmarks.addBookmark(url);
         bookmarks.addBookmark(urlsecure);
-        bookmarks.addTagtoBookmark(urlsecure1, "test");
+        bookmarks.addTagToBookmark(urlsecure1, "test");
 
         //Act
         int numberSecureURL = bookmarks.getSecureUrl();
@@ -236,8 +236,8 @@ public class BookmarksHandlerTest {
         //Arrange
         URL url = new URL("http://www.google.com");
         URL url1 = new URL("http://www.googlemaps.com");
-        bookmarks.addTagtoBookmark(url, "google");
-        bookmarks.addTagtoBookmark(url1, "google");
+        bookmarks.addTagToBookmark(url, "google");
+        bookmarks.addTagToBookmark(url1, "google");
         String expectedWithTag = "google";
 
         //Act
@@ -254,7 +254,7 @@ public class BookmarksHandlerTest {
     public void tagToRemoveDoesNotExist() throws MalformedURLException {
         //Arrange
         URL url = new URL("http://www.google.com");
-        bookmarks.addTagtoBookmark(url, "google");
+        bookmarks.addTagToBookmark(url, "google");
 
         //Assert
         assertThrows(NoSuchElementException.class, () -> bookmarks.removeTagFromBookmark(url, "yahoo"));
@@ -263,10 +263,8 @@ public class BookmarksHandlerTest {
     @Test
     public void removeExistingBookmark() throws MalformedURLException {
         //Arrange
-        List<URL> remainingBookmarks;
         URL url = new URL("http://www.google.com");
         URL url1 = new URL("http://www.yahoo.com");
-
 
         bookmarks.addBookmark(url);
         bookmarks.addBookmark(url1);

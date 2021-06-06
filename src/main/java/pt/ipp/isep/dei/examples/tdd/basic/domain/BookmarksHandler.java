@@ -2,8 +2,7 @@ package pt.ipp.isep.dei.examples.tdd.basic.domain;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-
-import static java.util.Map.*;
+import java.util.Map.Entry;
 
 /**
  * Bookmark class.
@@ -13,7 +12,6 @@ public class BookmarksHandler {
 
     Bookmark bookmark;
     URL url;
-    String tag;
     HashMap<URL, String> bookmarks = new HashMap<>();
     HashMap<URL, Integer> bookmarksRating = new HashMap<>(); // Maybe this way is more like tdd? to have two hashmaps here
     HashMap<URL, Bookmark> bookmarksHashMap = new HashMap<>(); // bit unpractical
@@ -37,7 +35,7 @@ public class BookmarksHandler {
         return true;
     }
 
-    public String addTagtoBookmark(URL url, String tag) {
+    public String addTagToBookmark(URL url, String tag) {
         bookmarks.put(url, tag);
         return bookmarks.get(url);
     }
@@ -53,50 +51,29 @@ public class BookmarksHandler {
     public Integer getBookmarksRating(URL url) {
         return bookmarksRating.get(url);
     }
-    
+
     public List<String> searchBookmarksByKeyword(String keyword) {
         List<String> foundBookmarks = new ArrayList<>();
         if (!bookmarks.isEmpty()) {
-            Set entryset = bookmarks.entrySet();
-            Iterator it = entryset.iterator();
-            while (it.hasNext()) {
-                Entry entry = (Entry) it.next();
-                entry.getValue();
+            Set<Entry<URL, String>> entryset = bookmarks.entrySet();
+            for (Entry<URL, String> urlStringEntry : entryset) {
+                @SuppressWarnings("rawtypes") Entry entry = urlStringEntry;
                 if (entry.getValue().equals(keyword)) {
-                    foundBookmarks.add(entry.getKey().toString());
-                }
+                    foundBookmarks.add(entry.getKey().toString()); }
             }
         }
-        else {
-            return Collections.emptyList();
-        }
+        else { return Collections.emptyList(); }
         return foundBookmarks;
     }
 
-/**
-    public int getSecureUrl(){
-        Map<Object, Object> result = bookmarks.entrySet()
-                .stream()
-                .filter(map -> map.getKey().toString().contains("http://www.yahoo.com/"))//filter by value
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        return result.size(); }
-}
- */
-
     public int getSecureUrl() {
-        ArrayList<Entry> secureURLsList = new ArrayList<>();
-        Set entryset = bookmarks.entrySet();
-        Iterator it = entryset.iterator();
-        while (it.hasNext()) {
-            Entry me = (Entry)it.next();
-            me.getKey();
-            if (me.getKey().toString().contains("https")) {
-               secureURLsList.add(me);
-            }
-            }
+        @SuppressWarnings("rawtypes") ArrayList<Entry> secureURLsList = new ArrayList<>();
+        Set<Entry<URL, String>> entryset = bookmarks.entrySet();
+        for (Entry<URL, String> urlStringEntry : entryset) {
+            if (urlStringEntry.getKey().toString().contains("https")) {
+                secureURLsList.add(urlStringEntry); } }
         return secureURLsList.size();
-        }
+    }
 
     public void removeTagFromBookmark(URL url, String tag) {
         if (bookmarks.containsKey(url) && bookmarks.containsValue(tag)) {
