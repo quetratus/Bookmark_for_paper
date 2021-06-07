@@ -194,7 +194,6 @@ public class BookmarksHandlerTest {
 
     @Test
     public void getNumberOfSecureBooksmarks() throws MalformedURLException {
-
         // Arrange
         URL url = new URL("http://www.yahoo.com/");
         URL urlsecure = new URL("https://mail.yahoo.com");
