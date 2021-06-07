@@ -3,6 +3,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.Collections;
 
 /**
  * Bookmark class.
@@ -59,10 +60,12 @@ public class BookmarksHandler {
             for (Entry<URL, String> urlStringEntry : entryset) {
                 @SuppressWarnings("rawtypes") Entry entry = urlStringEntry;
                 if (entry.getValue().equals(keyword)) {
-                    foundBookmarks.add(entry.getKey().toString()); }
+                    foundBookmarks.add(entry.getKey().toString());
+                }
             }
+        } else {
+            return Collections.emptyList();
         }
-        else { return Collections.emptyList(); }
         return foundBookmarks;
     }
 
@@ -71,7 +74,9 @@ public class BookmarksHandler {
         Set<Entry<URL, String>> entryset = bookmarks.entrySet();
         for (Entry<URL, String> urlStringEntry : entryset) {
             if (urlStringEntry.getKey().toString().contains("https")) {
-                secureURLsList.add(urlStringEntry); } }
+                secureURLsList.add(urlStringEntry);
+            }
+        }
         return secureURLsList.size();
     }
 
@@ -82,7 +87,7 @@ public class BookmarksHandler {
             throw new NoSuchElementException();
     }
 
-    public String getTag (URL url) {
+    public String getTag(URL url) {
         return bookmarks.get(url);
     }
 
@@ -98,5 +103,20 @@ public class BookmarksHandler {
         for (Map.Entry<URL, String> entry : bookmarks.entrySet())
             allBookmarks.add(entry.getKey());
         return allBookmarks;
+    }
+
+    public List<URL> getBookmarksByRatingDescending() {
+        //convert HashMap into List
+        List<URL> sortedResult = new ArrayList<>();
+        List<Entry<URL, Integer>> sortedBookmarks = new LinkedList<>(bookmarksRating.entrySet());
+        //sorting the list elements
+        sortedBookmarks.sort((o1, o2) -> {
+            //compare two object and return an integer
+            return o2.getValue().compareTo(o1.getValue());
+        });
+        for (Entry<URL, Integer> entry : sortedBookmarks) {
+            sortedResult.add(entry.getKey());
+        }
+        return sortedResult;
     }
 }

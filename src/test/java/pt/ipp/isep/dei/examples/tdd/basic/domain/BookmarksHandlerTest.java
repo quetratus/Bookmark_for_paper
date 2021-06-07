@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -299,6 +298,104 @@ public class BookmarksHandlerTest {
         assertThrows(NoSuchElementException.class, () -> bookmarks.removeBookmark(url));
         assertTrue(bookmarks.getAllBookmarks().isEmpty());
     }
+
+
+/**
+ * Final project
+ * Here starts the coding part for the final project.
+ */
+
+    @Test
+    public void ensureRatingOfBookmarksDescendingOrder() throws MalformedURLException {
+        //Arrange
+
+        URL url1 = new URL("http://www.google.com");
+        URL url2 = new URL("http://www.yahoo.com");
+        URL url2Duplicate = new URL("http://www.yahoo.com");
+        URL url3 = new URL("http://www.gmail.com");
+        URL url3Duplicate1 = new URL("http://www.gmail.com");
+        URL url3Duplicate2 = new URL("http://www.gmail.com");
+
+        bookmarks.addBookmark(url1);
+        bookmarks.addBookmark(url2);
+        bookmarks.addBookmark(url2Duplicate);
+        bookmarks.addBookmark(url3);
+        bookmarks.addBookmark(url3Duplicate1);
+        bookmarks.addBookmark(url3Duplicate2);
+
+        //Act
+        List<URL> sortedResult = bookmarks.getBookmarksByRatingDescending();
+        List<URL> expectedSortedResult = Arrays.asList(url3, url2, url1);
+
+        //Assert
+        assertIterableEquals(expectedSortedResult, sortedResult);
+    }
+
+    @Test
+    public void ensureRatingOfBookmarksDescendingOrderWithGaps() throws MalformedURLException {
+        //Arrange
+
+        URL url1 = new URL("http://www.google.com");
+        URL url2 = new URL("http://www.yahoo.com");
+        URL url2Duplicate = new URL("http://www.yahoo.com");
+        URL url2Duplicate2 = new URL("http://www.yahoo.com");
+        URL url3 = new URL("http://www.gmail.com");
+        URL url3Duplicate1 = new URL("http://www.gmail.com");
+        URL url3Duplicate2 = new URL("http://www.gmail.com");
+        URL url3Duplicate3 = new URL("http://www.gmail.com");
+        URL url3Duplicate4 = new URL("http://www.gmail.com");
+
+        bookmarks.addBookmark(url1); //rating 1
+        bookmarks.addBookmark(url2); //rating 3
+        bookmarks.addBookmark(url2Duplicate);
+        bookmarks.addBookmark(url2Duplicate2);
+        bookmarks.addBookmark(url3); //rating 5
+        bookmarks.addBookmark(url3Duplicate1);
+        bookmarks.addBookmark(url3Duplicate2);
+        bookmarks.addBookmark(url3Duplicate3);
+        bookmarks.addBookmark(url3Duplicate4);
+
+        //Act
+        List<URL> sortedResult = bookmarks.getBookmarksByRatingDescending();
+        List<URL> expectedSortedResult = Arrays.asList(url3, url2, url1);
+
+        //Assert
+        assertIterableEquals(expectedSortedResult, sortedResult);
+    }
+
+    @Test
+    public void ensureRatingOfBookmarksDescendingOrderEmpty() throws MalformedURLException {
+        //Arrange
+
+        //Act
+        List<URL> sortedResult = bookmarks.getBookmarksByRatingDescending();
+        List<URL> expectedSortedResult = new ArrayList<>();
+
+        //Assert
+        assertIterableEquals(expectedSortedResult, sortedResult);
+    }
+
+    @Test
+    public void ensureRatingOfBookmarksDescendingOrderWithSameRatings() throws MalformedURLException {
+        //Arrange
+
+        URL url1 = new URL("http://www.google.com");
+        URL url2 = new URL("http://www.yahoo.com");
+        URL url3 = new URL("http://www.gmail.com");
+
+        bookmarks.addBookmark(url1);
+        bookmarks.addBookmark(url2);
+        bookmarks.addBookmark(url3);
+
+        //Act
+        List<URL> sortedResult = bookmarks.getBookmarksByRatingDescending();
+        List<URL> expectedSortedResult = Arrays.asList(url3, url2, url1);
+
+        //Assert
+       assertEquals(expectedSortedResult.size(), sortedResult.size());
+
+    }
+
 
 }
 
